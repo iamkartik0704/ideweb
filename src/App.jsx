@@ -23,8 +23,6 @@ function App() {
           hero.classList.add('visible');
           hero.classList.remove('finished');
           if (finishTimeout) clearTimeout(finishTimeout);
-          // Total typing duration: line1 3s, line2 starts at 3.5s, ends at 6.5s, line3 starts at 7s, ends at 10s
-          // Add a small buffer
           finishTimeout = setTimeout(() => {
             hero.classList.add('finished');
           }, 11000);
@@ -40,6 +38,43 @@ function App() {
       observer.disconnect();
       if (finishTimeout) clearTimeout(finishTimeout);
     };
+  }, []);
+
+  // Video pop-up observer
+  useEffect(() => {
+    const videoContainer = document.querySelector('.video-showcase');
+    if (!videoContainer) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          videoContainer.classList.add('popped');
+        } else {
+          videoContainer.classList.remove('popped');
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(videoContainer);
+    return () => observer.disconnect();
+  }, []);
+
+  // Download cards staggered reveal
+  useEffect(() => {
+    const cards = document.querySelectorAll('.download-card');
+    const heading = document.querySelector('.download-heading');
+    const sub = document.querySelector('.download-sub');
+    if (!cards.length) return;
+    const elements = [heading, sub, ...cards].filter(Boolean);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        } else {
+          entry.target.classList.remove('revealed');
+        }
+      });
+    }, { threshold: 0.1 });
+    elements.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   const handleDownload = (e) => {
@@ -106,6 +141,93 @@ function App() {
               <button className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }}>Explore extensions</button>
             </div>
           </div>
+        </section>
+
+        {/* Video showcase - pops up like Antigravity */}
+        <section className="video-section">
+          <div className="video-showcase">
+            <div className="video-container">
+              <div className="video-placeholder">
+                {/* Play button overlay */}
+                <div className="play-button">
+                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="12" r="11" stroke="rgba(212,175,55,0.6)" strokeWidth="1.5" />
+                    <path d="M10 8l6 4-6 4V8z" fill="#D4AF37" />
+                  </svg>
+                </div>
+                <div className="video-label">Watch comπle in action</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Download options for all platforms */}
+        <section className="download-section" id="download">
+          <h2 className="download-heading">Download com<span className="pi-logo" style={{fontSize: '1.8rem'}}>π</span>le</h2>
+          <p className="download-sub">Available for every major platform.</p>
+
+          <div className="download-grid">
+            {/* Windows */}
+            <div className="download-card">
+              <div className="download-card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path d="M3 12.5L10.5 11.3V4L3 5V12.5Z" fill="#D4AF37"/>
+                  <path d="M11.5 11.2L21 9.5V3L11.5 4V11.2Z" fill="#D4AF37"/>
+                  <path d="M3 13.5L10.5 14.7V21L3 20V13.5Z" fill="#D4AF37"/>
+                  <path d="M11.5 14.8L21 16.5V22L11.5 21V14.8Z" fill="#D4AF37"/>
+                </svg>
+              </div>
+              <h3 className="download-card-title">Windows</h3>
+              <div className="download-card-links">
+                <a href="#" className="download-link">.exe <span className="download-tag">Installer</span></a>
+                <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a>
+                <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
+              </div>
+            </div>
+
+            {/* macOS */}
+            <div className="download-card">
+              <div className="download-card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.56 2.93 11.3 4.7 7.72C5.57 5.94 7.36 4.86 9.28 4.84C10.56 4.81 11.78 5.72 12.57 5.72C13.36 5.72 14.85 4.62 16.4 4.8C17.06 4.83 18.89 5.08 20.06 6.8C19.95 6.87 17.62 8.27 17.65 11.13C17.68 14.55 20.63 15.68 20.66 15.69C20.63 15.78 20.19 17.31 18.71 19.5Z" fill="#D4AF37"/>
+                  <path d="M15.49 2C15.61 3.17 15.14 4.35 14.38 5.19C13.61 6.04 12.43 6.7 11.3 6.61C11.16 5.46 11.73 4.26 12.45 3.48C13.23 2.64 14.52 2.03 15.49 2Z" fill="#D4AF37"/>
+                </svg>
+              </div>
+              <h3 className="download-card-title">macOS</h3>
+              <div className="download-card-links">
+                <a href="#" className="download-link">.dmg <span className="download-tag">Universal</span></a>
+                <a href="#" className="download-link">.dmg <span className="download-tag">Apple Silicon</span></a>
+                <a href="#" className="download-link">.dmg <span className="download-tag">Intel</span></a>
+                <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
+              </div>
+            </div>
+
+            {/* Linux */}
+            <div className="download-card">
+              <div className="download-card-icon">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 2C8.25 2 7 5.5 7 8.5C7 10 7 11 6 12.5C5 14 4 15 4 17C4 18.5 5 20 7.5 20.5C8.5 20.7 9 21 10 21.5C11 22 11.5 22 12 22C12.5 22 13 22 14 21.5C15 21 15.5 20.7 16.5 20.5C19 20 20 18.5 20 17C20 15 19 14 18 12.5C17 11 17 10 17 8.5C17 5.5 15.75 2 12 2Z" fill="#D4AF37"/>
+                  <circle cx="10" cy="9" r="1" fill="#121212"/>
+                  <circle cx="14" cy="9" r="1" fill="#121212"/>
+                  <path d="M10 13C10.5 14 11 14.5 12 14.5C13 14.5 13.5 14 14 13" stroke="#121212" strokeWidth="1" strokeLinecap="round"/>
+                </svg>
+              </div>
+              <h3 className="download-card-title">Linux</h3>
+              <div className="download-card-links">
+                <a href="#" className="download-link">.deb <span className="download-tag">Debian / Ubuntu</span></a>
+                <a href="#" className="download-link">.rpm <span className="download-tag">Fedora / RHEL</span></a>
+                <a href="#" className="download-link">.AppImage <span className="download-tag">Universal</span></a>
+                <a href="#" className="download-link">.tar.gz <span className="download-tag">Portable</span></a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Quote */}
+        <section className="quote-section">
+          <blockquote className="hero-quote">
+            <p>com<span className="pi-logo" style={{fontSize: '1.6rem'}}>π</span>le is our AI‑native IDE, allowing any developer to build in the multi‑model era.</p>
+          </blockquote>
         </section>
 
         <section className="showcase-section">
