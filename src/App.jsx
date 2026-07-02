@@ -208,6 +208,22 @@ function App() {
     return () => { observer.disconnect(); if (clearId) clearTimeout(clearId); };
   }, [activeImage]);
 
+  useEffect(() => {
+    const finale = document.querySelector('.finale-section');
+    if (!finale) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          finale.classList.add('pull-in');
+        } else {
+          finale.classList.remove('pull-in');
+        }
+      });
+    }, { threshold: 0.2 });
+    observer.observe(finale);
+    return () => observer.disconnect();
+  }, []);
+
   const handleDownload = (e) => {
     e.preventDefault();
     if (downloadState !== 'idle') return;
