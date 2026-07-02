@@ -13,6 +13,44 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Populate sleek quote with character spans for staggered reveal
+  useEffect(() => {
+    const sleek = document.querySelectorAll('.sleek-quote');
+    sleek.forEach(el => {
+      const inner = el.querySelector('.sleek-inner');
+      const text = el.getAttribute('data-text') || inner.textContent || '';
+      if (!inner) return;
+      // avoid re-populating
+      if (inner.dataset.populated) return;
+      inner.dataset.populated = '1';
+      inner.innerHTML = '';
+      // split into words so we don't allow line-breaks inside words
+      const words = text.split(' ');
+      let charIndex = 0;
+      words.forEach((word, wIdx) => {
+        const wordWrap = document.createElement('span');
+        wordWrap.className = 'word';
+        // create per-character spans inside the word
+        Array.from(word).forEach((ch) => {
+          const span = document.createElement('span');
+          span.className = 'char';
+          span.style.setProperty('--i', String(charIndex));
+          span.textContent = ch === ' ' ? '\u00A0' : ch;
+          wordWrap.appendChild(span);
+          charIndex++;
+        });
+        inner.appendChild(wordWrap);
+        // add a normal space between words (keeps words separate and allows wrapping between words)
+        if (wIdx < words.length - 1) inner.appendChild(document.createTextNode(' '));
+      });
+      // mark parent as populated so CSS can hide fallback text (after spans inserted)
+      el.dataset.populated = '1';
+      // mark the first word (brand) characters as highlighted
+      const firstWordChars = inner.querySelectorAll('.word:first-child .char');
+      firstWordChars.forEach(ch => ch.classList.add('brand'));
+    });
+  }, []);
+
   useEffect(() => {
     const hero = document.querySelector('.hero-title');
     if (!hero) return;
@@ -61,20 +99,60 @@ function App() {
   useEffect(() => {
     const cards = document.querySelectorAll('.download-card');
     const heading = document.querySelector('.download-heading');
-    const sub = document.querySelector('.download-sub');
+    const subs = document.querySelectorAll('.download-sub');
     if (!cards.length) return;
-    const elements = [heading, sub, ...cards].filter(Boolean);
+    const elements = [heading, ...subs, ...cards].filter(Boolean);
+    // use a WeakMap to track timeouts for replaying the per-character typing
+    const timeoutsMap = new WeakMap();
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const t = entry.target;
         if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
+          if (t.classList && t.classList.contains('sleek-quote')) {
+            // clear any previous timeouts and classes
+            const prev = timeoutsMap.get(t) || [];
+            prev.forEach(id => clearTimeout(id));
+            timeoutsMap.set(t, []);
+            // ensure chars are reset
+            const chars = t.querySelectorAll('.char');
+            chars.forEach(ch => ch.classList.remove('in'));
+            // stagger adding the `in` class to create a typing effect
+            chars.forEach((ch, i) => {
+              const id = setTimeout(() => {
+                ch.classList.add('in');
+              }, i * 35);
+              timeoutsMap.get(t).push(id);
+            });
+          } else {
+            t.classList.add('revealed');
+          }
         } else {
-          entry.target.classList.remove('revealed');
+          if (t.classList && t.classList.contains('sleek-quote')) {
+            const prev = timeoutsMap.get(t) || [];
+            prev.forEach(id => clearTimeout(id));
+            timeoutsMap.set(t, []);
+            t.querySelectorAll('.char.in').forEach(ch => ch.classList.remove('in'));
+          } else {
+            entry.target.classList.remove('revealed');
+          }
         }
       });
     }, { threshold: 0.1 });
     elements.forEach(el => observer.observe(el));
     return () => observer.disconnect();
+  }, []);
+
+  // Showcase gallery images and lightbox state
+  const images = ['/image.png', '/image.png', '/image.png', '/image.png', '/image.png'];
+  const [activeImage, setActiveImage] = useState(images[0]);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') setLightboxOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, []);
 
   const handleDownload = (e) => {
@@ -101,7 +179,7 @@ function App() {
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <a href="#" className="logo-link">
-            <span className="logo-text">com<span className="pi-logo" style={{fontSize: '1.4rem'}}>π</span>le</span>
+            <span className="logo-text">Com<span className="pi-logo" style={{fontSize: '1.4rem'}}>π</span>le</span>
           </a>
           <div className="nav-links">
             <a href="#products">Features <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
@@ -155,7 +233,7 @@ function App() {
                     <path d="M10 8l6 4-6 4V8z" fill="#D4AF37" />
                   </svg>
                 </div>
-                <div className="video-label">Watch comπle in action</div>
+                <div className="video-label">Watch Comπle in action</div>
               </div>
             </div>
           </div>
@@ -163,7 +241,7 @@ function App() {
 
         {/* Download options for all platforms */}
         <section className="download-section" id="download">
-          <h2 className="download-heading">Download com<span className="pi-logo" style={{fontSize: '1.8rem'}}>π</span>le</h2>
+          <h2 className="download-heading">Download Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le</h2>
           <p className="download-sub">Available for every major platform.</p>
 
           <div className="download-grid">
@@ -225,18 +303,25 @@ function App() {
 
         {/* Quote */}
         <section className="quote-section">
-          <blockquote className="hero-quote">
-            <p>com<span className="pi-logo" style={{fontSize: '1.6rem'}}>π</span>le is our AI‑native IDE, allowing any developer to build in the multi‑model era.</p>
-          </blockquote>
+          <p className="sleek-quote download-sub" data-text={"Comπle is our AI-native IDE, allowing any developer to build in the multi-model era."}>
+            <span className="sleek-inner" />
+          </p>
         </section>
 
         <section className="showcase-section">
           <div className="dark-panel">
             <div className="dark-panel-content">
-              <div className="dark-panel-logo">
-                <span className="logo-text" style={{fontSize: '3rem'}}>com<span className="pi-logo" style={{fontSize: '3.5rem'}}>π</span>le</span>
+                <div className="dark-panel-logo">
+                <span className="logo-text" style={{fontSize: '3rem'}}>Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le</span>
               </div>
-              <img src="/image.png" alt="comπle IDE Interface" className="ide-showcase" />
+              <div className="showcase-gallery">
+                <img src={activeImage} alt="Comπle IDE Interface - main" className="showcase-main ide-showcase" onClick={() => setLightboxOpen(true)} />
+                <div className="showcase-thumbs">
+                  {images.slice(1,5).map((src, idx) => (
+                    <img key={idx} src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className="showcase-thumb" onClick={() => setActiveImage(src)} />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -244,7 +329,7 @@ function App() {
 
       <footer>
         <div className="footer-logo">
-          &copy; 2026 comπle IDE
+          &copy; 2026 Comπle IDE
         </div>
         <div className="footer-links">
         </div>
