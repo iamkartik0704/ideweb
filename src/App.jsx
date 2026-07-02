@@ -407,7 +407,7 @@ function App() {
         <section className="finale-section">
           <div className="finale-copy">
             <p className="finale-kicker">Releases</p>
-            <h2>The Com<span className="pi-logo finale-pi"><span className="finale-pi-icon">π</span></span>le Experience, Everywhere.</h2>
+            <h2>The Com<span className="finale-pi"><span className="finale-pi-icon">π</span></span>le Experience, Everywhere.</h2>
             <p className="finale-text">A beautifully simple developer workspace that scales from desktop to cloud — designed to ship with every machine and every team.</p>
             <div className="finale-footer-links">
               <a href="#about">About</a>
