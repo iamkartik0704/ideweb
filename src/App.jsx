@@ -294,7 +294,7 @@ function App() {
 
         {/* Download options for all platforms */}
         <section className="download-section" id="download">
-          <h2 className="download-heading">Download Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le</h2>
+          <h2 className="download-heading">Bring Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le to Your Machine</h2>
           <p className="download-sub">Available for every major platform.</p>
 
           <div className="download-grid">
@@ -365,7 +365,7 @@ function App() {
           <div className="dark-panel">
             <div className="dark-panel-content">
                 <div className="dark-panel-logo">
-                <span className="logo-text" style={{fontSize: '3rem'}}>Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le</span>
+                <span className="logo-text" style={{fontSize: '3rem'}}>The Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le Canvas</span>
               </div>
               <div className="showcase-gallery">
                 <div className="showcase-main-wrap">
@@ -387,13 +387,33 @@ function App() {
             </div>
           </div>
         </section>
+
+        <section className="finale-section">
+          <div className="finale-copy">
+            <p className="finale-kicker">Releases</p>
+            <h2>The Com<span className="pi-logo">π</span>le Experience, Everywhere.</h2>
+            <p className="finale-text">A beautifully simple developer workspace that scales from desktop to cloud — designed to ship with every machine and every team.</p>
+            <div className="finale-footer-links">
+              <a href="#about">About</a>
+              <a href="#careers">Careers</a>
+              <a href="#privacy">Privacy</a>
+              <a href="#terms">Terms</a>
+              <a href="#contact">Contact</a>
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer>
-        <div className="footer-logo">
-          &copy; 2026 Comπle IDE
+        <div className="footer-brand">
+          <span className="footer-logo">Comπle</span>
+          <span className="footer-copy">© 2026 Comπle IDE</span>
         </div>
         <div className="footer-links">
+          <a href="#support">Support</a>
+          <a href="#press">Press</a>
+          <a href="#legal">Legal</a>
+          <a href="#sitemap">Sitemap</a>
         </div>
       </footer>
     </>
