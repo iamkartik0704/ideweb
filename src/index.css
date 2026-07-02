@@ -98,6 +98,36 @@ a {
     display: inline-block;
 }
 
+.finale-pi {
+    font-size: 1em;
+    line-height: 0.9;
+    vertical-align: text-bottom;
+    color: #D4AF37;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    position: relative;
+    display: inline-block;
+}
+
+.finale-pi-icon {
+    display: inline-block;
+    position: relative;
+    top: -0.55em;
+    text-shadow: 0 0 2px rgba(212, 175, 55, 0.35);
+}
+
+.finale-pi::after {
+    content: '^';
+    position: absolute;
+    left: 50%;
+    bottom: -0.55em;
+    transform: translateX(-50%);
+    color: rgba(212, 175, 55, 0.9);
+    font-size: 0.65em;
+    letter-spacing: 0.2em;
+    line-height: 1;
+}
+
 .logo-text {
     font-size: 1.25rem;
     font-weight: 500;
@@ -887,10 +917,10 @@ a {
     max-width: 1100px;
     margin: 4rem auto 2rem;
     padding: 3rem 2rem;
-    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(18, 18, 18, 0.95);
+    border: 1px solid rgba(212, 175, 55, 0.18);
     border-radius: 32px;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.28);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.32);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -916,7 +946,7 @@ a {
 .finale-kicker {
     text-transform: uppercase;
     letter-spacing: 0.38em;
-    color: rgba(212,175,55,0.9);
+    color: var(--gradient-start);
     font-size: 0.78rem;
     margin-bottom: 1rem;
 }
@@ -924,10 +954,14 @@ a {
     font-size: clamp(2.4rem, 4vw, 4.2rem);
     line-height: 1.05;
     margin: 0;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 .finale-text {
     margin: 1.3rem auto 0;
-    color: var(--text-secondary);
+    color: rgba(255,255,255,0.85);
     font-size: 1rem;
     max-width: 680px;
     line-height: 1.85;
@@ -943,7 +977,7 @@ a {
     margin-top: 2rem;
 }
 .finale-footer-links a {
-    color: var(--text-primary);
+    color: rgba(255,255,255,0.92);
     text-decoration: none;
     font-weight: 600;
     transition: color 0.2s ease, transform 0.2s ease;
