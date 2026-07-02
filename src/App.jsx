@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 function App() {
@@ -143,7 +143,13 @@ function App() {
   }, []);
 
   // Showcase gallery images and lightbox state
-  const images = ['/image.png', '/image.png', '/image.png', '/image.png', '/image.png'];
+  const images = [
+    'https://picsum.photos/id/1011/1600/900',
+    'https://picsum.photos/id/1015/1600/900',
+    'https://picsum.photos/id/1025/1600/900',
+    'https://picsum.photos/id/1035/1600/900',
+    'https://picsum.photos/id/1043/1600/900'
+  ];
   const [activeImage, setActiveImage] = useState(images[0]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
 
@@ -154,6 +160,53 @@ function App() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
+
+  // gallery pop animation on each intersection + prev/next controls
+  const nextImage = (e) => {
+    if (e) e.stopPropagation();
+    const idx = images.indexOf(activeImage);
+    const ni = (idx + 1) % images.length;
+    setActiveImage(images[ni]);
+  };
+  const prevImage = (e) => {
+    if (e) e.stopPropagation();
+    const idx = images.indexOf(activeImage);
+    const ni = (idx - 1 + images.length) % images.length;
+    setActiveImage(images[ni]);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImage((current) => {
+        const idx = images.indexOf(current);
+        return images[(idx + 1) % images.length];
+      });
+    }, 4500);
+    return () => clearInterval(interval);
+  }, [images]);
+
+  useEffect(() => {
+    const gallery = document.querySelector('.showcase-gallery');
+    if (!gallery) return;
+    let clearId;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // replay animation: remove then add class so it triggers every time
+          gallery.classList.remove('gallery-pop');
+          // next frame add class
+          requestAnimationFrame(() => gallery.classList.add('gallery-pop'));
+          if (clearId) clearTimeout(clearId);
+          clearId = setTimeout(() => gallery.classList.remove('gallery-pop'), 1000);
+        } else {
+          gallery.classList.remove('gallery-pop');
+          if (clearId) { clearTimeout(clearId); clearId = null; }
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(gallery);
+    return () => { observer.disconnect(); if (clearId) clearTimeout(clearId); };
+  }, [activeImage]);
 
   const handleDownload = (e) => {
     e.preventDefault();
@@ -315,10 +368,16 @@ function App() {
                 <span className="logo-text" style={{fontSize: '3rem'}}>Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le</span>
               </div>
               <div className="showcase-gallery">
-                <img src={activeImage} alt="Comπle IDE Interface - main" className="showcase-main ide-showcase" onClick={() => setLightboxOpen(true)} />
+                <div className="showcase-main-wrap">
+                  <img src={activeImage} alt="Comπle IDE Interface - main" className="showcase-main ide-showcase" onClick={() => setLightboxOpen(true)} />
+                  <div className="gallery-nav">
+                    <button className="gallery-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous">‹</button>
+                    <button className="gallery-next" onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next">›</button>
+                  </div>
+                </div>
                 <div className="showcase-thumbs">
-                  {images.slice(1,5).map((src, idx) => (
-                    <img key={idx} src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className="showcase-thumb" onClick={() => setActiveImage(src)} />
+                  {images.filter((src) => src !== activeImage).map((src, idx) => (
+                    <img key={idx} src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className={`showcase-thumb ${activeImage === src ? 'active' : ''}`} onClick={() => setActiveImage(src)} />
                   ))}
                 </div>
               </div>
