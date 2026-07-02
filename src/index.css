@@ -1,0 +1,438 @@
+:root {
+    /* comπle Dark Theme inspired by the IDE screenshot */
+    --bg-light: #121212;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A0;
+    --btn-bg: #D4AF37; /* Gold accent */
+    --btn-text: #000000;
+    --btn-hover: #E8C454;
+    --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+    --btn-secondary-hover: rgba(255, 255, 255, 0.1);
+    --border-color: rgba(255, 255, 255, 0.08);
+    --nav-height: 72px;
+    
+    --font-ui: 'Inter', sans-serif;
+    /* Additional palette for premium accents */
+    --gradient-start: #D4AF37;
+    --gradient-end: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    font-family: var(--font-ui);
+    line-height: 1.5;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Background Gradients */
+.page-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    background: radial-gradient(circle at 0% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 100% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+}
+
+/* Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--nav-height);
+    z-index: 100;
+    background: rgba(18, 18, 18, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.navbar.scrolled {
+    border-bottom: 1px solid var(--border-color);
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-link {
+    text-decoration: none;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pi-logo {
+    font-family: serif;
+    font-size: 2rem;
+    color: #D4AF37; /* Solid gold for comπle */
+    font-weight: bold;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s, border-bottom 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--gradient-start);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* Buttons (Antigravity pill shape, comπle colors) */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0.6rem 1.4rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14.5px;
+    border: none;
+    backdrop-filter: blur(4px);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    color: var(--btn-text);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, var(--gradient-end), var(--gradient-start));
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.15);
+}
+
+.btn-primary:hover {
+    background-color: var(--btn-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.25);
+}
+
+.btn-secondary {
+    background-color: var(--btn-secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--btn-secondary-hover);
+}
+
+/* Hero Section (Antigravity layout) */
+.hero {
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 2rem;
+    position: relative;
+    padding-top: var(--nav-height);
+    overflow: hidden;
+}
+
+/* Subtle pulsing background for hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.07), transparent 70%);
+    animation: pulseBg 8s ease-in-out infinite;
+    z-index: -1;
+}
+
+@keyframes pulseBg {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.2); opacity: 0.3; }
+}
+
+.hero-title-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-size: clamp(40px, 8vw, 107px);
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -2px;
+    color: var(--text-primary);
+    margin-bottom: 2rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    text-align: center;
+}
+
+/* Typing effect for headline */
+/* Typing effect for multiline headline */
+.typing {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  opacity: 0; /* hidden until visible */
+}
+
+/* Single cursor for typing lines */
+.typing::after {
+  content: '';
+  display: inline-block;
+  width: 0.15em;
+  background: var(--gradient-start);
+  margin-left: 2px;
+  animation: blinkCursor 0.75s steps(1) infinite;
+}
+
+/* Hide cursor after typing finishes */
+.finished .typing::after { display: none; }
+/* Visible state triggers each line */
+/* Visible state triggers each line */
+/* Visible state triggers each line */
+/* Visible state triggers each line */
+.visible .line1 {
+  opacity: 1;
+  width: 0ch;
+  animation: typingLine1 2.5s steps(10) forwards;
+}
+.visible .line2 {
+  opacity: 1;
+  width: 0ch;
+  animation: typingLine2 2.5s steps(16) 2.6s forwards;
+}
+.visible .line3 {
+  opacity: 1;
+  width: 0ch;
+  animation: typingLine3 2.5s steps(18) 5.2s forwards;
+}
+
+/* Slower cursor blink */
+.typing::after {
+  animation: blinkCursor 1s steps(1) infinite;
+}
+
+/* Hide cursor after typing finishes */
+.finished .typing::after { display: none; }
+@keyframes typingLine1 { from { width: 0ch; } to { width: 10ch; } }
+@keyframes typingLine2 { from { width: 0ch; } to { width: 20ch; } }
+@keyframes typingLine3 { from { width: 0ch; } to { width: 22ch; } }
+
+@keyframes blinkCursor { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* Gradient highlight retained for other texts if needed */
+.gradient-highlight {
+    background: linear-gradient(45deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: background-position 0.5s ease;
+    background-size: 200% 200%;
+    background-position: 0% 0%;
+}
+
+.hero-title:hover .gradient-highlight {
+    background-position: 100% 0%;
+}
+
+/* Gold Cursor for comπle */
+.gold-cursor {
+    display: inline-block;
+    width: 6px;
+    height: clamp(40px, 8vw, 100px);
+    background: #D4AF37;
+    margin-left: 8px;
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+    border-radius: 4px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Dark Showcase Panel (Elevated dark theme) */
+.showcase-section {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto 8rem;
+}
+
+.dark-panel {
+    background-color: #1a1a1a;
+    border: 1px solid var(--border-color);
+    border-radius: 40px;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 800px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+}
+
+/* Glass‑morphism inner card for the IDE showcase */
+.glass-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1rem;
+    width: 100%;
+    max-width: 1100px;
+    backdrop-filter: blur(12px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(212,175,55,0.15);
+}
+
+/* Subtle gold dotted background */
+.dark-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgba(212, 175, 55, 0.1) 1.5px, transparent 1.5px);
+    background-size: 48px 48px;
+    opacity: 0.6;
+    z-index: 0;
+    animation: driftDots 20s linear infinite;
+}
+
+@keyframes driftDots {
+    from { background-position: 0 0; }
+    to { background-position: 48px 48px; }
+}
+
+.dark-panel-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dark-panel-logo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4rem;
+}
+
+.dark-panel-logo .pi-logo {
+    font-size: 5rem;
+}
+
+.dark-panel-logo .logo-text {
+    color: #FFFFFF;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.ide-showcase {
+    width: 100%;
+    max-width: 1100px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 40px rgba(212, 175, 55, 0.05);
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--border-color);
+    padding: 4rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-logo {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+.spin { 
+    animation: spin 1s linear infinite; 
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links { display: none; }
+    .dark-panel { padding: 3rem 1rem; border-radius: 24px; min-height: auto; }
+    .dark-panel-logo .pi-logo { font-size: 3rem; }
+    .dark-panel-logo .logo-text { font-size: 2rem; }
+}
