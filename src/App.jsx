@@ -377,7 +377,10 @@ function App() {
                 </div>
                 <div className="showcase-thumbs">
                   {images.filter((src) => src !== activeImage).map((src, idx) => (
-                    <img key={idx} src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className={`showcase-thumb ${activeImage === src ? 'active' : ''}`} onClick={() => setActiveImage(src)} />
+                    <button key={idx} type="button" className="thumb-card" onClick={() => setActiveImage(src)}>
+                      <img src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className="showcase-thumb" />
+                      <span className="thumb-label">Preview</span>
+                    </button>
                   ))}
                 </div>
               </div>
