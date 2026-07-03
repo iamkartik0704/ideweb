@@ -232,11 +232,11 @@ function App() {
 
   // Showcase gallery images and lightbox state
   const images = [
-    'https://picsum.photos/id/1011/1600/900',
-    'https://picsum.photos/id/1015/1600/900',
-    'https://picsum.photos/id/1025/1600/900',
-    'https://picsum.photos/id/1035/1600/900',
-    'https://picsum.photos/id/1043/1600/900'
+    '/1.png',
+    '/2.png',
+    '/3.png',
+    '/4.png',
+    '/5.png'
   ];
   const [activeImage, setActiveImage] = useState(images[0]);
   const [lightboxOpen, setLightboxOpen] = useState(false);
