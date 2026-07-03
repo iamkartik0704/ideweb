@@ -7,6 +7,14 @@ function App() {
   const [downloadState, setDownloadState] = useState('idle');
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState('');
+  const [detectedOS, setDetectedOS] = useState('Windows');
+
+  useEffect(() => {
+    const ua = window.navigator.userAgent.toLowerCase();
+    if (ua.indexOf('mac') !== -1) setDetectedOS('macOS');
+    else if (ua.indexOf('linux') !== -1 && ua.indexOf('android') === -1) setDetectedOS('Linux');
+    else setDetectedOS('Windows');
+  }, []);
 
   const extractSection = (html, sectionName) => {
     if (!html) return '';
@@ -364,7 +372,7 @@ function App() {
   <div className="typing line3">Endless possibilities.</div>
 </div>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-              <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={handleDownload}>Download for Windows</a>
+              <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={handleDownload}>Download for {detectedOS}</a>
               <a href="#gallery" className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'gallery')}>
                 Explore <span className="logo-text" style={{fontSize: 'inherit', fontWeight: 'inherit', letterSpacing: 'inherit'}}>Com<span className="pi-logo" style={{fontSize: '1.3em'}}>π</span>le</span>
               </a>
