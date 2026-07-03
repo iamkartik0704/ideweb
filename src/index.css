@@ -23,12 +23,15 @@
     box-sizing: border-box;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background-color: var(--bg-light);
     color: var(--text-primary);
     font-family: var(--font-ui);
     line-height: 1.5;
-    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
 }
 
@@ -298,6 +301,10 @@ a {
 .visible .line2 { transition-delay: 0.28s; }
 .visible .line3 { transition-delay: 0.56s; }
 
+.line3 {
+    margin-left: 1.5rem;
+}
+
 /* When finished, hide cursor */
 .finished .typing::after { display: none; }
 
@@ -345,23 +352,21 @@ a {
 }
 
 .video-showcase {
-    width: min(760px, 100%);
-    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
     position: relative;
     opacity: 0;
     transform-origin: center center;
-    transform: scale(0.85) translateY(60px);
+    transform: scale(0.7) translateY(60px);
     transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1),
-                transform 1s cubic-bezier(0.16, 1, 0.3, 1),
-                width 0.75s ease;
-    will-change: transform, opacity, width;
+                transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
 }
 
 .video-showcase.popped {
     opacity: 1;
     transform: scale(1) translateY(0);
-    width: calc(100vw - 4rem);
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -370,8 +375,8 @@ a {
     position: absolute;
     left: 50%;
     top: -30px;
-    width: 100vw;
-    max-width: 100vw;
+    width: 120%;
+    max-width: 2000px;
     transform: translateX(-50%);
     height: calc(100% + 60px);
     background: radial-gradient(circle at 50% 20%, rgba(212,175,55,0.16), transparent 24%),
@@ -1194,10 +1199,336 @@ footer {
     animation: spin 1s linear infinite; 
 }
 
+.finale-section.pull-in::before {
+    animation: finale-glow 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes finale-glow {
+    from { opacity: 0.7; transform: scale(1); }
+    to { opacity: 0.85; transform: scale(1.02); }
+}
+
+.finale-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(212,175,55,0.08), transparent 28%);
+    opacity: 0.75;
+    pointer-events: none;
+}
+.finale-copy {
+    max-width: 760px;
+    position: relative;
+    z-index: 1;
+}
+.finale-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.38em;
+    color: var(--gradient-start);
+    font-size: 0.78rem;
+    margin-bottom: 1rem;
+}
+.finale-section h2 {
+    font-size: clamp(2.4rem, 4vw, 4.2rem);
+    line-height: 1.05;
+    margin: 0;
+    background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.finale-text {
+    margin: 1.3rem auto 0;
+    color: rgba(255,255,255,0.85);
+    font-size: 1rem;
+    max-width: 680px;
+    line-height: 1.85;
+}
+.finale-footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.5rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 2rem;
+}
+.finale-footer-links a {
+    color: rgba(255,255,255,0.92);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease, transform 0.2s ease;
+    position: relative;
+}
+.finale-footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-start);
+    transition: width 0.25s ease;
+}
+.finale-footer-links a:hover {
+    color: var(--gradient-start);
+}
+.finale-footer-links a:hover::after {
+    width: 100%;
+}
+
+footer {
+    border-top: 1px solid var(--border-color);
+    padding: 3rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    color: var(--text-secondary);
+}
+.footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.footer-logo {
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+}
+.footer-copy {
+    font-size: 0.95rem;
+}
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.footer-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+}
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-start);
+    transition: width 0.25s ease;
+}
+.footer-links a:hover {
+    color: var(--text-primary);
+}
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+@media (max-width: 850px) {
+    .finale-section {
+        grid-template-columns: 1fr;
+        align-items: flex-start;
+    }
+    .finale-footer-links {
+        justify-content: flex-start;
+    }
+    footer {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .footer-links {
+        justify-content: flex-start;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lightbox for expanded image */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.85);
+    z-index: 9999;
+    padding: 2rem;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 92%; max-height: 92%; border-radius: 8px; box-shadow: 0 30px 80px rgba(0,0,0,0.8); }
+.lightbox-close {
+    position: absolute;
+    right: 18px;
+    top: 18px;
+    background: rgba(255,255,255,0.06);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
+.spin { 
+    animation: spin 1s linear infinite; 
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .nav-links { display: none; }
     .dark-panel { padding: 3rem 1rem; border-radius: 24px; min-height: auto; }
     .dark-panel-logo .pi-logo { font-size: 3rem; }
     .dark-panel-logo .logo-text { font-size: 2rem; }
+}
+
+/* Side Panel styles */
+.side-panel-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    animation: fadeInOverlay 0.25s forwards;
+}
+
+.side-panel-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: clamp(450px, 40vw, 600px);
+    max-width: 100vw;
+    background: rgba(15, 15, 17, 0.95);
+    backdrop-filter: blur(12px);
+    border-left: 1px solid #222222;
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+.side-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 2.5rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    background: transparent;
+    z-index: 10;
+}
+
+.side-panel-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.side-panel-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 2rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.side-panel-close:hover {
+    color: #fff;
+}
+
+.side-panel-body {
+    padding: 2rem 2.5rem;
+    overflow-y: auto;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    flex: 1;
+    overscroll-behavior: contain;
+    font-weight: 400;
+}
+
+/* Custom Scrollbar for the Side Panel */
+.side-panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+.side-panel-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+.side-panel-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+.side-panel-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.side-panel-body h1, .side-panel-body h2, .side-panel-body h3 {
+    color: rgba(255, 255, 255, 0.95);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.2px;
+}
+
+/* Hide redundant title if it's the first paragraph generated from docx */
+.side-panel-body p:first-child:has(+ p) {
+    color: var(--text-primary);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.side-panel-body p {
+    margin-bottom: 1.25rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.side-panel-body ul, .side-panel-body ol {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.side-panel-body li {
+    margin-bottom: 0.5rem;
+}
+
+.side-panel-body strong {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
 }

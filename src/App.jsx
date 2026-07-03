@@ -1,9 +1,90 @@
 import { useEffect, useMemo, useState } from 'react'
 import './App.css'
+import docxContent from './assets/docxContent.json'
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [downloadState, setDownloadState] = useState('idle');
+  const [modalContent, setModalContent] = useState(null);
+  const [modalTitle, setModalTitle] = useState('');
+
+  const extractSection = (html, sectionName) => {
+    if (!html) return '';
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const elements = Array.from(doc.body.children);
+    
+    let capture = false;
+    let resultHtml = '';
+    
+    for (const el of elements) {
+      if (el.tagName === 'P' && el.querySelector('strong')) {
+        const strongText = el.querySelector('strong').textContent.trim();
+        if (new RegExp(`^\\d+\\.\\s*${sectionName}`, 'i').test(strongText)) {
+          capture = true;
+          continue;
+        } else if (capture && (new RegExp(`^\\d+\\.\\s*`, 'i').test(strongText) || strongText.startsWith('Part '))) {
+          break;
+        }
+      }
+      
+      if (capture) {
+        resultHtml += el.outerHTML;
+      }
+    }
+    return resultHtml || html;
+  };
+
+  const openModal = (e, key, title, sectionName = null) => {
+    e.preventDefault();
+    if (docxContent[key]) {
+      let content = docxContent[key];
+      if (sectionName) {
+        content = extractSection(content, sectionName);
+      }
+      setModalContent(content);
+      setModalTitle(title);
+    }
+  };
+
+  const closeModal = () => {
+    setModalContent(null);
+    setModalTitle('');
+  };
+
+  const slowScrollTo = (e, id) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (!target) return;
+    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+    const startPosition = window.pageYOffset;
+    const distance = targetPosition - startPosition;
+    const duration = 2500; // 2.5 seconds for an even slower scroll
+    let start = null;
+
+    window.requestAnimationFrame(function step(timestamp) {
+      if (!start) start = timestamp;
+      const progress = timestamp - start;
+      const percent = Math.min(progress / duration, 1);
+      // easeOutCubic: starts fast enough to avoid a pause, then slows down gently
+      const ease = 1 - Math.pow(1 - percent, 3);
+      window.scrollTo(0, startPosition + distance * ease);
+      if (progress < duration) {
+        window.requestAnimationFrame(step);
+      }
+    });
+  };
+
+  useEffect(() => {
+    if (modalContent) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [modalContent]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -125,6 +206,7 @@ function App() {
             });
           } else {
             t.classList.add('revealed');
+            observer.unobserve(t); // Prevent jitter by only revealing once
           }
         } else {
           if (t.classList && t.classList.contains('sleek-quote')) {
@@ -132,8 +214,6 @@ function App() {
             prev.forEach(id => clearTimeout(id));
             timeoutsMap.set(t, []);
             t.querySelectorAll('.char.in').forEach(ch => ch.classList.remove('in'));
-          } else {
-            entry.target.classList.remove('revealed');
           }
         }
       });
@@ -251,10 +331,10 @@ function App() {
             <span className="logo-text">Com<span className="pi-logo" style={{fontSize: '1.4rem'}}>π</span>le</span>
           </a>
           <div className="nav-links">
-            <a href="#products">Features <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
-            <a href="#use-cases">Extensions <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
-            <a href="#pricing">AI Agent</a>
-            <a href="#resources">Documentation <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="6 9 12 15 18 9"></polyline></svg></a>
+            <a href="#products" onClick={(e) => openModal(e, 'features_compile', 'Features')}>Features</a>
+            <a href="#use-cases" onClick={(e) => openModal(e, 'extensions', 'Extensions')}>Extensions</a>
+            <a href="#pricing" onClick={(e) => openModal(e, 'ai_agent', 'AI Agent')}>AI Agent</a>
+            <a href="#resources" onClick={(e) => openModal(e, 'documentation', 'Documentation')}>Documentation</a>
           </div>
           <div className="nav-actions">
             <a href="#download" className="btn btn-primary" onClick={handleDownload}>
@@ -280,12 +360,14 @@ function App() {
           <div className="hero-title-container">
               <div className="hero-title">
   <div className="typing line1">One IDE.</div>
-  <div className="typing line2">Every language.</div>
-  <div className="typing line3">Infinite π‑recision.</div>
+  <div className="typing line2">Infinite π‑recision.</div>
+  <div className="typing line3">Endless possibilities.</div>
 </div>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
               <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={handleDownload}>Download for Windows</a>
-              <button className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }}>Explore extensions</button>
+              <a href="#gallery" className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'gallery')}>
+                Explore <span className="logo-text" style={{fontSize: 'inherit', fontWeight: 'inherit', letterSpacing: 'inherit'}}>Com<span className="pi-logo" style={{fontSize: '1.3em'}}>π</span>le</span>
+              </a>
             </div>
           </div>
         </section>
@@ -377,7 +459,7 @@ function App() {
           </p>
         </section>
 
-        <section className="showcase-section">
+        <section className="showcase-section" id="gallery">
           <div className="dark-panel">
             <div className="dark-panel-content">
                 <div className="dark-panel-logo">
@@ -410,11 +492,11 @@ function App() {
             <h2>The Com<span className="finale-pi"><span className="finale-pi-icon">π</span></span>le Experience, Everywhere.</h2>
             <p className="finale-text">A beautifully simple developer workspace that scales from desktop to cloud — designed to ship with every machine and every team.</p>
             <div className="finale-footer-links">
-              <a href="#about">About</a>
-              <a href="#careers">Careers</a>
-              <a href="#privacy">Privacy</a>
-              <a href="#terms">Terms</a>
-              <a href="#contact">Contact</a>
+              <a href="#about" onClick={(e) => openModal(e, 'footer_section', 'About Us', 'About')}>About</a>
+              <a href="#careers" onClick={(e) => openModal(e, 'footer_section', 'Careers', 'Careers')}>Careers</a>
+              <a href="#privacy" onClick={(e) => openModal(e, 'footer_section', 'Privacy', 'Privacy')}>Privacy</a>
+              <a href="#terms" onClick={(e) => openModal(e, 'footer_section', 'Terms of Service', 'Terms')}>Terms</a>
+              <a href="#contact" onClick={(e) => openModal(e, 'footer_section', 'Contact', 'Contact')}>Contact</a>
             </div>
           </div>
         </section>
@@ -426,12 +508,29 @@ function App() {
           <span className="footer-copy">© 2026 Comπle IDE</span>
         </div>
         <div className="footer-links">
-          <a href="#support">Support</a>
-          <a href="#press">Press</a>
-          <a href="#legal">Legal</a>
-          <a href="#sitemap">Sitemap</a>
+          <a href="#support" onClick={(e) => openModal(e, 'footer_section', 'Support', 'Support')}>Support</a>
+          <a href="#press" onClick={(e) => openModal(e, 'footer_section', 'Press', 'Press')}>Press</a>
+          <a href="#legal" onClick={(e) => openModal(e, 'footer_section', 'Legal', 'Legal')}>Legal</a>
+          <a href="#sitemap" onClick={(e) => openModal(e, 'footer_section', 'Sitemap', 'Sitemap')}>Sitemap</a>
         </div>
       </footer>
+
+      {modalContent && (
+        <div className="side-panel-overlay" onClick={closeModal}>
+          <div className="side-panel-content" onClick={(e) => e.stopPropagation()}>
+            <div className="side-panel-header">
+              <h2 className="side-panel-title">{modalTitle}</h2>
+              <button className="side-panel-close" onClick={closeModal}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div className="side-panel-body" dangerouslySetInnerHTML={{ __html: modalContent }} />
+          </div>
+        </div>
+      )}
     </>
   )
 }
