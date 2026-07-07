@@ -424,6 +424,7 @@ function App() {
 
             {/* macOS */}
             <div className="download-card">
+              <div className="coming-soon-banner">COMING SOON</div>
               <div className="download-card-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                   <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.56 2.93 11.3 4.7 7.72C5.57 5.94 7.36 4.86 9.28 4.84C10.56 4.81 11.78 5.72 12.57 5.72C13.36 5.72 14.85 4.62 16.4 4.8C17.06 4.83 18.89 5.08 20.06 6.8C19.95 6.87 17.62 8.27 17.65 11.13C17.68 14.55 20.63 15.68 20.66 15.69C20.63 15.78 20.19 17.31 18.71 19.5Z" fill="#D4AF37"/>
@@ -441,6 +442,7 @@ function App() {
 
             {/* Linux */}
             <div className="download-card">
+              <div className="coming-soon-banner">COMING SOON</div>
               <div className="download-card-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2C8.25 2 7 5.5 7 8.5C7 10 7 11 6 12.5C5 14 4 15 4 17C4 18.5 5 20 7.5 20.5C8.5 20.7 9 21 10 21.5C11 22 11.5 22 12 22C12.5 22 13 22 14 21.5C15 21 15.5 20.7 16.5 20.5C19 20 20 18.5 20 17C20 15 19 14 18 12.5C17 11 17 10 17 8.5C17 5.5 15.75 2 12 2Z" fill="#D4AF37"/>

@@ -1532,3 +1532,30 @@ footer {
     color: rgba(255, 255, 255, 0.95);
     font-weight: 600;
 }
+
+/* Coming Soon Banner */
+.coming-soon-banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    background: #D4AF37;
+    color: #000000;
+    padding: 8px 110px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transform-origin: center;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.35);
+    white-space: nowrap;
+}
+
+/* Disable download links for macOS and Linux */
+.download-card:nth-child(2) .download-link,
+.download-card:nth-child(3) .download-link {
+    pointer-events: none;
+    opacity: 0.45;
+    cursor: not-allowed;
+}
