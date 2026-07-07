@@ -417,7 +417,7 @@ function App() {
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
                 <a href="#" className="download-link">.exe <span className="download-tag">Installer</span></a>
-                <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a>
+                {/* <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a> */}
                 <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
               </div>
             </div>
@@ -434,8 +434,8 @@ function App() {
               <h3 className="download-card-title">macOS</h3>
               <div className="download-card-links">
                 <a href="#" className="download-link">.dmg <span className="download-tag">Universal</span></a>
-                <a href="#" className="download-link">.dmg <span className="download-tag">Apple Silicon</span></a>
-                <a href="#" className="download-link">.dmg <span className="download-tag">Intel</span></a>
+                {/* <a href="#" className="download-link">.dmg <span className="download-tag">Apple Silicon</span></a> */}
+                {/* <a href="#" className="download-link">.dmg <span className="download-tag">Intel</span></a> */}
                 <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
               </div>
             </div>
@@ -453,8 +453,8 @@ function App() {
               </div>
               <h3 className="download-card-title">Linux</h3>
               <div className="download-card-links">
-                <a href="#" className="download-link">.deb <span className="download-tag">Debian / Ubuntu</span></a>
-                <a href="#" className="download-link">.rpm <span className="download-tag">Fedora / RHEL</span></a>
+                {/* <a href="#" className="download-link">.deb <span className="download-tag">Debian / Ubuntu</span></a> */}
+                {/* <a href="#" className="download-link">.rpm <span className="download-tag">Fedora / RHEL</span></a> */}
                 <a href="#" className="download-link">.AppImage <span className="download-tag">Universal</span></a>
                 <a href="#" className="download-link">.tar.gz <span className="download-tag">Portable</span></a>
               </div>
