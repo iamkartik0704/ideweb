@@ -12,7 +12,6 @@ const images = [
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [downloadState, setDownloadState] = useState('idle');
   const [modalContent, setModalContent] = useState(null);
   const [modalTitle, setModalTitle] = useState('');
   const [detectedOS, setDetectedOS] = useState('Windows');
@@ -304,23 +303,6 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  const handleDownload = (e) => {
-    e.preventDefault();
-    if (downloadState !== 'idle') return;
-
-    setDownloadState('preparing');
-    setTimeout(() => {
-      setDownloadState('downloading');
-      setTimeout(() => {
-        const link = document.createElement('a');
-        link.download = 'compile-setup.exe';
-        link.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent('Mock executable content');
-        link.click();
-        setDownloadState('idle');
-      }, 1000);
-    }, 1000);
-  };
-
   return (
     <>
       <div className="page-background"></div>
@@ -337,19 +319,13 @@ function App() {
             <a href="#resources" onClick={(e) => openModal(e, 'documentation', 'Documentation')}>Documentation</a>
           </div>
           <div className="nav-actions">
-            <a href="#download" className="btn btn-primary" onClick={handleDownload}>
-              {downloadState === 'idle' && (
-                <>
-                  Download 
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="7 10 12 15 17 10"></polyline>
-                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                  </svg>
-                </>
-              )}
-              {downloadState === 'preparing' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="spin"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>}
-              {downloadState === 'downloading' && 'Downloading...'}
+            <a href="#download" className="btn btn-primary" onClick={(e) => slowScrollTo(e, 'download')}>
+              Download 
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
             </a>
           </div>
         </div>
@@ -364,7 +340,7 @@ function App() {
   <div className="typing line3">Endless possibilities.</div>
 </div>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
-              <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={handleDownload}>Download for {detectedOS}</a>
+              <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'download')}>Download for {detectedOS}</a>
               <a href="#gallery" className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'gallery')}>
                 Explore <span className="logo-text" style={{fontSize: 'inherit', fontWeight: 'inherit', letterSpacing: 'inherit'}}>Com<span className="pi-logo" style={{fontSize: '1.3em'}}>π</span>le</span>
               </a>
