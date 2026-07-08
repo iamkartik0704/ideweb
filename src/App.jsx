@@ -392,6 +392,10 @@ function App() {
                 {/* <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a> */}
                 {/* <a href="/pack/compile-windows (1).zip" download className="download-link">.zip <span className="download-tag">Portable</span></a> */}
               </div>
+              <div style={{ marginTop: '15px', padding: '10px', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderLeft: '3px solid #D4AF37', borderRadius: '4px', fontSize: '0.85rem', color: '#ccc', textAlign: 'left', lineHeight: '1.4' }}>
+                <strong style={{ color: '#D4AF37', display: 'block', marginBottom: '4px' }}>Note on Windows SmartScreen:</strong>
+                Windows might show a "Windows protected your PC" warning during installation due to a missing publisher certificate. Click <strong>"More info"</strong> and then <strong>"Run anyway"</strong> to install safely. We guarantee this is not a virus.
+              </div>
             </div>
 
             {/* macOS */}
