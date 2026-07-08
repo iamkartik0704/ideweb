@@ -1,6 +1,14 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import docxContent from './assets/docxContent.json'
+
+const images = [
+  '/1.png',
+  '/2.png',
+  '/3.png',
+  '/4.png',
+  '/5.png'
+];
 
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -230,24 +238,8 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  // Showcase gallery images and lightbox state
-  const images = [
-    '/1.png',
-    '/2.png',
-    '/3.png',
-    '/4.png',
-    '/5.png'
-  ];
+  // Showcase gallery images
   const [activeImage, setActiveImage] = useState(images[0]);
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-
-  useEffect(() => {
-    const onKey = (e) => {
-      if (e.key === 'Escape') setLightboxOpen(false);
-    };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, []);
 
   // gallery pop animation on each intersection + prev/next controls
   const nextImage = (e) => {
@@ -271,7 +263,7 @@ function App() {
       });
     }, 4500);
     return () => clearInterval(interval);
-  }, [images]);
+  }, []);
 
   useEffect(() => {
     const gallery = document.querySelector('.showcase-gallery');
@@ -384,16 +376,15 @@ function App() {
         <section className="video-section">
           <div className="video-showcase">
             <div className="video-container">
-              <div className="video-placeholder">
-                {/* Play button overlay */}
-                <div className="play-button">
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                    <circle cx="12" cy="12" r="11" stroke="rgba(212,175,55,0.6)" strokeWidth="1.5" />
-                    <path d="M10 8l6 4-6 4V8z" fill="#D4AF37" />
-                  </svg>
-                </div>
-                <div className="video-label">Watch Comπle in action</div>
-              </div>
+              <video 
+                src="/compile.mp4" 
+                autoPlay 
+                loop 
+                muted 
+                playsInline 
+                controls
+                style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit' }}
+              />
             </div>
           </div>
         </section>
@@ -416,9 +407,9 @@ function App() {
               </div>
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
-                <a href="#" className="download-link">.exe <span className="download-tag">Installer</span></a>
+                <a href="/pack/comπle Editor Setup 1.0.0.exe" download className="download-link">.exe <span className="download-tag">Installer</span></a>
                 {/* <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a> */}
-                <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
+                <a href="/pack/compile-windows (1).zip" download className="download-link">.zip <span className="download-tag">Portable</span></a>
               </div>
             </div>
 
