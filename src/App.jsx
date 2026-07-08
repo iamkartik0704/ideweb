@@ -407,9 +407,14 @@ function App() {
               </div>
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
-                <a href="/pack/comπle Editor Setup 1.0.0.exe" download className="download-link">.exe <span className="download-tag">Installer</span></a>
+                <a 
+  href="https://github.com/iamkartik0704/compile/releases/latest/download/com%CF%80le%20Editor%20Setup%201.0.0.exe" 
+  className="download-link"
+>
+  .exe <span className="download-tag">Installer</span>
+</a>
                 {/* <a href="#" className="download-link">.msi <span className="download-tag">MSI</span></a> */}
-                <a href="/pack/compile-windows (1).zip" download className="download-link">.zip <span className="download-tag">Portable</span></a>
+                {/* <a href="/pack/compile-windows (1).zip" download className="download-link">.zip <span className="download-tag">Portable</span></a> */}
               </div>
             </div>
 
