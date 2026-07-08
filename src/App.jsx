@@ -408,7 +408,7 @@ function App() {
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
                 <a 
-  href="https://github.com/iamkartik0704/compile/releases/latest/download/com%CF%80le%20Editor%20Setup%201.0.0.exe" 
+  href="https://github.com/iamkartik0704/compile/releases/latest/download/com%CF%80le%20Editor%20Setup%20${version}.exe" 
   className="download-link"
 >
   .exe <span className="download-tag">Installer</span>
