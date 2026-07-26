@@ -384,7 +384,7 @@ function App() {
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
                 <a 
-  href="https://github.com/iamkartik0704/compile/releases/download/v1.0.0-build.27/com.le.Editor.Setup.1.0.0.exe" 
+  href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-win-x64.exe" 
   className="download-link"
 >
   .exe <span className="download-tag">Installer</span>
@@ -400,7 +400,6 @@ function App() {
 
             {/* macOS */}
             <div className="download-card">
-              <div className="coming-soon-banner">COMING SOON</div>
               <div className="download-card-icon">
                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
                   <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 16.56 2.93 11.3 4.7 7.72C5.57 5.94 7.36 4.86 9.28 4.84C10.56 4.81 11.78 5.72 12.57 5.72C13.36 5.72 14.85 4.62 16.4 4.8C17.06 4.83 18.89 5.08 20.06 6.8C19.95 6.87 17.62 8.27 17.65 11.13C17.68 14.55 20.63 15.68 20.66 15.69C20.63 15.78 20.19 17.31 18.71 19.5Z" fill="#D4AF37"/>
@@ -409,10 +408,15 @@ function App() {
               </div>
               <h3 className="download-card-title">macOS</h3>
               <div className="download-card-links">
-                <a href="#" className="download-link">.dmg <span className="download-tag">Universal</span></a>
-                {/* <a href="#" className="download-link">.dmg <span className="download-tag">Apple Silicon</span></a> */}
-                {/* <a href="#" className="download-link">.dmg <span className="download-tag">Intel</span></a> */}
-                <a href="#" className="download-link">.zip <span className="download-tag">Portable</span></a>
+                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-mac-arm64.zip" className="download-link">
+                  .zip <span className="download-tag">Apple Silicon (M Series)</span>
+                </a>
+              </div>
+              <div style={{ marginTop: '15px', padding: '10px', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderLeft: '3px solid #D4AF37', borderRadius: '4px', fontSize: '0.85rem', color: '#ccc', textAlign: 'left', lineHeight: '1.4' }}>
+                <strong style={{ color: '#D4AF37', display: 'block', marginBottom: '4px' }}>Note on Apple Signing:</strong>
+                macOS might show a warning that the app is damaged. This is due to a missing Apple signing certificate. Open Terminal and run:<br/>
+                <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 4px', borderRadius: '3px', marginTop: '6px', display: 'inline-block', wordBreak: 'break-all' }}>xattr -cr /path/to/app</code><br/>
+                <span style={{ fontSize: '0.8rem', opacity: 0.8, display: 'inline-block', marginTop: '4px' }}>(Replace <code>/path/to/app</code> with the actual path to the extracted app)</span>
               </div>
             </div>
 
