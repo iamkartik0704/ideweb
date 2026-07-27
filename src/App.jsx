@@ -411,6 +411,9 @@ function App() {
                 <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-mac-arm64.zip" className="download-link">
                   .zip <span className="download-tag">Apple Silicon (M Series)</span>
                 </a>
+                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-mac-x64.zip" className="download-link" style={{ marginTop: '8px' }}>
+                  .zip <span className="download-tag">Intel Mac</span>
+                </a>
               </div>
               <div style={{ marginTop: '15px', padding: '10px', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderLeft: '3px solid #D4AF37', borderRadius: '4px', fontSize: '0.85rem', color: '#ccc', textAlign: 'left', lineHeight: '1.4' }}>
                 <strong style={{ color: '#D4AF37', display: 'block', marginBottom: '4px' }}>Note on Apple Signing:</strong>
