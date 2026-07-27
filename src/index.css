@@ -1552,8 +1552,7 @@ footer {
     white-space: nowrap;
 }
 
-/* Disable download links for macOS and Linux */
-.download-card:nth-child(2) .download-link,
+/* Disable download links for Linux */
 .download-card:nth-child(3) .download-link {
     pointer-events: none;
     opacity: 0.45;
