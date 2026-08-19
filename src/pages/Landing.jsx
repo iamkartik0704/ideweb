@@ -277,7 +277,7 @@ function Landing() {
       <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
         <div className="nav-container">
           <a href="#" className="logo-link">
-            <span className="logo-text">Com<span className="pi-logo" style={{fontSize: '1.4rem'}}>Ï€</span>le</span>
+            <span className="logo-text">Com<span className="pi-logo" style={{fontSize: '1.4rem'}}>π</span>le</span>
           </a>
           <div className="nav-links">
             <a href="#products" onClick={(e) => openModal(e, 'features_compile', 'Features')}>Features</a>
@@ -303,13 +303,13 @@ function Landing() {
           <div className="hero-title-container">
               <div className="hero-title">
   <div className="typing line1">One IDE.</div>
-  <div className="typing line2">Infinite Ï€â€‘recision.</div>
+  <div className="typing line2">Infinite π‑recision.</div>
   <div className="typing line3">Endless possibilities.</div>
 </div>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '2rem' }}>
               <a href="#download" className="btn btn-primary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'download')}>Download for {detectedOS}</a>
               <a href="#gallery" className="btn btn-secondary" style={{ padding: '0.8rem 2rem' }} onClick={(e) => slowScrollTo(e, 'gallery')}>
-                Explore <span className="logo-text" style={{fontSize: 'inherit', fontWeight: 'inherit', letterSpacing: 'inherit'}}>Com<span className="pi-logo" style={{fontSize: '1.3em'}}>Ï€</span>le</span>
+                Explore <span className="logo-text" style={{fontSize: 'inherit', fontWeight: 'inherit', letterSpacing: 'inherit'}}>Com<span className="pi-logo" style={{fontSize: '1.3em'}}>π</span>le</span>
               </a>
             </div>
           </div>
@@ -334,7 +334,7 @@ function Landing() {
 
         {/* Download options for all platforms */}
         <section className="download-section" id="download">
-          <h2 className="download-heading">Bring Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>Ï€</span>le to Your Machine</h2>
+          <h2 className="download-heading">Bring Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le to Your Machine</h2>
           <p className="download-sub">Available for every major platform.</p>
 
           <div className="download-grid">
@@ -442,11 +442,11 @@ function Landing() {
           <div className="dark-panel">
             <div className="dark-panel-content">
                 <div className="dark-panel-logo">
-                <span className="logo-text" style={{fontSize: '3rem'}}>The Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>Ï€</span>le Canvas</span>
+                <span className="logo-text" style={{fontSize: '3rem'}}>The Com<span className="pi-logo" style={{fontSize: '3.6rem'}}>π</span>le Canvas</span>
               </div>
               <div className="showcase-gallery">
                 <div className="showcase-main-wrap">
-                  <img src={activeImage} alt="ComÏ€le IDE Interface - main" className="showcase-main ide-showcase" />
+                  <img src={activeImage} alt="Comπle IDE Interface - main" className="showcase-main ide-showcase" />
                   <div className="gallery-nav">
                     <button className="gallery-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous">â€¹</button>
                     <button className="gallery-next" onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next">â€º</button>
@@ -455,7 +455,7 @@ function Landing() {
                 <div className="showcase-thumbs">
                   {images.filter((src) => src !== activeImage).map((src, idx) => (
                     <button key={idx} type="button" className="thumb-card" onClick={() => setActiveImage(src)}>
-                      <img src={src} alt={`ComÏ€le IDE Interface - thumb ${idx+1}`} className="showcase-thumb" />
+                      <img src={src} alt={`Comπle IDE Interface - thumb ${idx+1}`} className="showcase-thumb" />
                       <span className="thumb-label">Preview</span>
                     </button>
                   ))}
@@ -468,8 +468,8 @@ function Landing() {
         <section className="finale-section">
           <div className="finale-copy">
             <p className="finale-kicker">Releases</p>
-            <h2>The Com<span className="finale-pi"><span className="finale-pi-icon">Ï€</span></span>le Experience, Everywhere.</h2>
-            <p className="finale-text">A beautifully simple developer workspace that scales from desktop to cloud â€” designed to ship with every machine and every team.</p>
+            <h2>The Com<span className="finale-pi"><span className="finale-pi-icon">π</span></span>le Experience, Everywhere.</h2>
+            <p className="finale-text">A beautifully simple developer workspace that scales from desktop to cloud — designed to ship with every machine and every team.</p>
             <div className="finale-footer-links">
               <a href="#about" onClick={(e) => openModal(e, 'footer_section', 'About Us', 'About')}>About</a>
               <a href="#careers" onClick={(e) => openModal(e, 'footer_section', 'Careers', 'Careers')}>Careers</a>
@@ -483,8 +483,8 @@ function Landing() {
 
       <footer>
         <div className="footer-brand">
-          <span className="footer-logo">ComÏ€le</span>
-          <span className="footer-copy">Â© 2026 ComÏ€le IDE</span>
+          <span className="footer-logo">Comπle</span>
+          <span className="footer-copy">© 2026 Comπle IDE</span>
         </div>
         <div className="footer-links">
           <a href="#support" onClick={(e) => openModal(e, 'footer_section', 'Support', 'Support')}>Support</a>
