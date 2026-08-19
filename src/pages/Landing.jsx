@@ -1,4 +1,4 @@
-﻿import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../App.css'
 import docxContent from '../assets/docxContent.json'
 
@@ -425,7 +425,7 @@ function Landing() {
           {Array.from(word).map((ch) => {
             const i = charIndex++;
             return (
-              <span key={i} className={char } style={{ '--i': String(i) }}>
+              <span key={i} className="char" style={{ '--i': String(i) }}>
                 {ch === ' ' ? '\u00A0' : ch}
               </span>
             );
@@ -446,7 +446,7 @@ function Landing() {
               </div>
               <div className="showcase-gallery">
                 <div className="showcase-main-wrap">
-                  <img src={activeImage} alt="ComÏ€le IDE Interface - main" className="showcase-main ide-showcase" onClick={() => setLightboxOpen(true)} />
+                  <img src={activeImage} alt="ComÏ€le IDE Interface - main" className="showcase-main ide-showcase" />
                   <div className="gallery-nav">
                     <button className="gallery-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous">â€¹</button>
                     <button className="gallery-next" onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next">â€º</button>
