@@ -448,8 +448,8 @@ function Landing() {
                 <div className="showcase-main-wrap">
                   <img src={activeImage} alt="Comπle IDE Interface - main" className="showcase-main ide-showcase" />
                   <div className="gallery-nav">
-                    <button className="gallery-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous">â€¹</button>
-                    <button className="gallery-next" onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next">â€º</button>
+                    <button className="gallery-prev" onClick={(e) => { e.stopPropagation(); prevImage(); }} aria-label="Previous">&lsaquo;</button>
+                    <button className="gallery-next" onClick={(e) => { e.stopPropagation(); nextImage(); }} aria-label="Next">&rsaquo;</button>
                   </div>
                 </div>
                 <div className="showcase-thumbs">
