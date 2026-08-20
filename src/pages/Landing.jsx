@@ -351,7 +351,7 @@ function Landing() {
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
                 <a 
-  href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-win-x64.exe" 
+  href="https://github.com/iamkartik0704/compile/actions/runs/32299488946/artifacts/9382565815" 
   className="download-link"
 >
   .exe <span className="download-tag">Installer</span>
@@ -375,7 +375,7 @@ function Landing() {
               </div>
               <h3 className="download-card-title">macOS</h3>
               <div className="download-card-links">
-                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-mac-arm64.zip" className="download-link">
+                <a href="https://github.com/iamkartik0704/compile/actions/runs/32299488946/artifacts/9382642142" className="download-link">
                   .zip <span className="download-tag">Apple Silicon (M Series)</span>
                 </a>
                 <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.13/compile-1.1.13-mac-x64.zip" className="download-link" style={{ marginTop: '8px' }}>
