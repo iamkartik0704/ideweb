@@ -351,7 +351,7 @@ function Landing() {
               <h3 className="download-card-title">Windows</h3>
               <div className="download-card-links">
                 <a 
-  href="https://github.com/iamkartik0704/compile/releases/download/v1.1.16/compile-1.1.16-win-x64.exe" 
+  href="https://github.com/iamkartik0704/compile/releases/download/v1.1.17/compile-1.1.17-win-x64.exe" 
   className="download-link"
 >
   .exe <span className="download-tag">Installer</span>
@@ -375,12 +375,12 @@ function Landing() {
               </div>
               <h3 className="download-card-title">macOS</h3>
               <div className="download-card-links">
-                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.16/compile-1.1.16-mac-arm64.zip" className="download-link">
+                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.17/compile-macos-14-arm64.zip" className="download-link">
                   .zip <span className="download-tag">Apple Silicon (M Series)</span>
                 </a>
-                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.16/compile-1.1.16-mac-x64.zip" className="download-link" style={{ marginTop: '8px' }}>
+                {/* <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.16/compile-1.1.16-mac-x64.zip" className="download-link" style={{ marginTop: '8px' }}>
                   .zip <span className="download-tag">Intel Mac</span>
-                </a>
+                </a> */}
               </div>
               <div style={{ marginTop: '15px', padding: '10px', backgroundColor: 'rgba(212, 175, 55, 0.1)', borderLeft: '3px solid #D4AF37', borderRadius: '4px', fontSize: '0.85rem', color: '#ccc', textAlign: 'left', lineHeight: '1.4' }}>
                 <strong style={{ color: '#D4AF37', display: 'block', marginBottom: '4px' }}>Note on Apple Signing:</strong>
