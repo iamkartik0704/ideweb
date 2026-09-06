@@ -375,7 +375,7 @@ function Landing() {
               </div>
               <h3 className="download-card-title">macOS</h3>
               <div className="download-card-links">
-                <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.17/compile-macos-14-arm64.zip" className="download-link">
+                <a href="https://github.com/iamkartik0704/compile/releases/download/untagged-8b5921edaf37e0c3374c/compile-1.1.17-mac-arm64.zip" className="download-link">
                   .zip <span className="download-tag">Apple Silicon (M Series)</span>
                 </a>
                 {/* <a href="https://github.com/iamkartik0704/compile/releases/download/v1.1.16/compile-1.1.16-mac-x64.zip" className="download-link" style={{ marginTop: '8px' }}>
